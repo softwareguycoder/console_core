@@ -18,6 +18,28 @@ void print_strings(char** strings, int count) {
 	}
 }
 
+/** Checks the specified string whether the string contains only numbers or a period. */
+int is_numbers_only(const char* string) {
+	int result = 0;
+	int contains_one_period_only = 0;
+
+	if (string == NULL || string[0] == '\0' || strlen(string) == 0)
+		return result;
+
+	for(int i=0; i<strlen(string); i++){
+			if(46 != string[i] && (57 < string[i] || 48 > string[i])){
+				return result;			/* stop on the first non-numeric char with a 'false' result */
+			} else if (46 == string[i]) {
+				if (contains_one_period_only == 0) {
+					contains_one_period_only = 1;
+				} else if (contains_one_period_only == 1) {
+					contains_one_period_only = 2;		/* contains more than one period */
+				}
+			}
+		}
+	return (int)(contains_one_period_only <= 1);		/* indicates that a string is all digits, and has at most one period (i.e. for a decimal) */
+}
+
 int get_line(const char *prmpt, char *buff, int size) {
 	int ch, extra;
 
