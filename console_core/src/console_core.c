@@ -18,7 +18,7 @@ void print_strings(char** strings, int count) {
 	}
 }
 
-int get_line(const char *prmpt, char *buff, int size){
+int get_line(const char *prmpt, char *buff, int size) {
 	int ch, extra;
 
 	flush_stdin();
@@ -48,7 +48,8 @@ int get_line(const char *prmpt, char *buff, int size){
 	return (strlen(buff) == size) ? EXACTLY_CORRECT : OK;
 }
 
-int get_line_with_default(const char *prmpt, char *buff, const char *default_value, int size) {
+int get_line_with_default(const char *prmpt, char *buff,
+		const char *default_value, int size) {
 	int ch, extra;
 
 	flush_stdin();
@@ -88,7 +89,7 @@ int get_line_with_default(const char *prmpt, char *buff, const char *default_val
 	return (strlen(buff) == size) ? EXACTLY_CORRECT : OK;
 }
 
-void flush_stdin() {
+void flush_stdin(void) {
 	// make stdin non-blocking
 	int flags = fcntl(0, F_GETFL);
 	fcntl(0, F_SETFL, O_NONBLOCK);
@@ -102,3 +103,8 @@ void flush_stdin() {
 	fcntl(0, F_SETFL, flags);
 }
 
+void clear_screen(void){
+	/* clear the terminal window */
+
+	printf("\033[H\033[J");
+}

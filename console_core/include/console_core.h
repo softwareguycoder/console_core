@@ -10,7 +10,8 @@
 
 #include "symbols.h"
 
-void flush_stdin();
+void clear_screen(void);
+void flush_stdin(void);
 int get_line(const char *prmpt, char *buff, int size);
 int get_line_with_default(const char *prmpt, char *buff, const char *default_value, int size);
 void print_strings(char** strings, int count);
