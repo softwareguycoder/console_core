@@ -8,6 +8,11 @@
 #include "stdafx.h"
 #include "console_core.h"
 
+void prompt_for_key_press(void){
+	printf("\nPress any key to continue...\n");
+	char c = getchar();
+}
+
 void print_strings(char** strings, int count) {
 	// The value of count must be greater than or equal to zero
 	if (count <= 0)
