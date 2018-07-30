@@ -84,7 +84,7 @@ int get_line_with_default(const char *prmpt, char *buff,
 	// Get line with buffer overrun protection.
 
 	if (prmpt != NULL) {
-		printf("%s", prmpt);
+		printf("%s [%s]", prmpt, default_value);
 		fflush(stdout);
 	}
 
