@@ -43,7 +43,7 @@
 							<tool command="gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.c.linker.so.debug.1509125380" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.so.debug">
 								<option defaultValue="true" id="gnu.c.link.so.debug.option.shared.113207181" name="Shared (-shared)" superClass="gnu.c.link.so.debug.option.shared" valueType="boolean"/>
 								<option id="gnu.c.link.option.paths.1483621169" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/debug_core/Release}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/debug_core/Debug}&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.libs.1501753087" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="debug_core"/>
@@ -70,7 +70,7 @@
 				<externalSettings containerId="debug_core;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/debug_core"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/debug_core/Release"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/debug_core/Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="debug_core" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
@@ -118,7 +118,7 @@
 							<tool commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="cdt.managedbuild.tool.gnu.c.linker.so.release.820428690" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.so.release">
 								<option defaultValue="true" id="gnu.c.link.so.release.option.shared.555363372" name="Shared (-shared)" superClass="gnu.c.link.so.release.option.shared" valueType="boolean"/>
 								<option id="gnu.c.link.option.paths.656150041" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/debug_core/Release}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/debug_core/Debug}&quot;"/>
 								</option>
 								<option id="gnu.c.link.option.libs.171529165" name="Libraries (-l)" superClass="gnu.c.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="debug_core"/>
@@ -145,7 +145,7 @@
 				<externalSettings containerId="debug_core;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/debug_core"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/debug_core/Release"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/debug_core/Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="debug_core" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
 				</externalSettings>
