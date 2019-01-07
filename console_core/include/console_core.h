@@ -8,6 +8,8 @@
 #ifndef __CONSOLE_CORE_H__
 #define __CONSOLE_CORE_H__
 
+#include "symbols.h"
+
 void clear_screen(void);
 void flush_stdin(void);
 int get_line(const char *prmpt, char *buff, int size);
