@@ -10,7 +10,7 @@
 
 void prompt_for_key_press(void){
 	printf("\nPress any key to continue...\n");
-	char c = getchar();
+	getchar();
 }
 
 void print_strings(char** strings, int count) {
