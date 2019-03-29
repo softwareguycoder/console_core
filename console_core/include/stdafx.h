@@ -16,6 +16,6 @@
 #include <errno.h>
 #include <limits.h>
 
-#include <include/debug_core.h>
+#include <../../debug_core/debug_core/include/debug_core.h>
 
 #endif /* __STDAFX_H__ */
