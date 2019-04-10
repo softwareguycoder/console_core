@@ -12,10 +12,10 @@
 
 void ClearScreen(void);
 void FlushStdin(void);
-int GetLineFromUser(const char *prmpt, char *buff, int size);
-int GetLineFromUserWithDefault(const char *prmpt, char *buff, const char *default_value, int size);
-int IsNumbersOnly(const char* string);
-void PrintStrings(char *ppszStrings[], int count);
+int GetLineFromUser(const char *pszPrompt, char *pszReplyBuffer, int nSize);
+int GetLineFromUserWithDefault(const char *pszPrompt, char *pszReplyBuffer, const char *pszDefaultValue, int nSize);
+int IsNumbersOnly(const char* pszString);
+void PrintStrings(char *ppszStrings[], int nCount);
 void PromptForKeyPress(void);
 
 #endif /* __CONSOLE_CORE_H__ */

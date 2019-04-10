@@ -8,41 +8,24 @@
 #include "stdafx.h"
 #include "console_core.h"
 
-void PromptForKeyPress(void){
-	printf("\nPress any key to continue...\n");
-	getchar();
+void ClearScreen(void){
+	/* clear the terminal window */
+
+	printf("\033[H\033[J");
 }
 
-void PrintStrings(char* ppszStrings[], int nCount) {
-	// The value of count must be greater than or equal to zero
-	if (nCount <= 0)
-		return;
+void FlushStdin(void) {
+	// make stdin non-blocking
+	int nFlags = fcntl(0, F_GETFL);
+	fcntl(0, F_SETFL, O_NONBLOCK);
+	char ch;
 
-	for (int i = 0; i < nCount; i++) {
-		printf("%s\r\n", ppszStrings[i]);
+	// remove all characters from stdin
+	while ((ch = getchar()) != '\n' && ch != EOF) {
 	}
-}
 
-/** Checks the specified string whether the string contains only numbers or a period. */
-int IsNumbersOnly(const char* pszString) {
-	int nResult = 0;
-	int fContainsOnePeriodOnly = 0;
-
-	if (pszString == NULL || pszString[0] == '\0' || strlen(pszString) == 0)
-		return nResult;
-
-	for(int i=0; i<strlen(pszString); i++){
-			if(46 != pszString[i] && (57 < pszString[i] || 48 > pszString[i])){
-				return nResult;			/* stop on the first non-numeric char with a 'false' result */
-			} else if (46 == pszString[i]) {
-				if (fContainsOnePeriodOnly == 0) {
-					fContainsOnePeriodOnly = 1;
-				} else if (fContainsOnePeriodOnly == 1) {
-					fContainsOnePeriodOnly = 2;		/* contains more than one period */
-				}
-			}
-		}
-	return (int)(fContainsOnePeriodOnly <= 1);		/* indicates that a string is all digits, and has at most one period (i.e. for a decimal) */
+	// restore original flags
+	fcntl(0, F_SETFL, nFlags);
 }
 
 int GetLineFromUser(const char *pszPrompt, char *pszReplyBuffer, int nSize) {
@@ -58,7 +41,8 @@ int GetLineFromUser(const char *pszPrompt, char *pszReplyBuffer, int nSize) {
 		fflush(stdout);
 	}
 
-	if (fgets(pszReplyBuffer, nSize, stdin) == NULL)
+	// Use nSize + 1 below to allow for the null-terminator
+	if (fgets(pszReplyBuffer, nSize + 1, stdin) == NULL)
 		return NO_INPUT;
 
 	// If it was too long, there'll be no newline. In that case, we flush
@@ -90,7 +74,8 @@ int GetLineFromUserWithDefault(const char *pszPrompt, char *pszReplyBuffer,
 		fflush(stdout);
 	}
 
-	if (fgets(pszReplyBuffer, nSize, stdin) == NULL) {
+	/* Ask fgets for nSize + 1 chars so that the +1'th char is the null-terminator */
+	if (fgets(pszReplyBuffer, nSize + 1, stdin) == NULL) {
 		/* If we are here and there is no input by the user, then
 		 * give the default_value; make sure that buff is big enough
 		 * to hold the default_value.   We assume that the size parameter
@@ -118,22 +103,39 @@ int GetLineFromUserWithDefault(const char *pszPrompt, char *pszReplyBuffer,
 	return (strlen(pszReplyBuffer) == nSize) ? EXACTLY_CORRECT : OK;
 }
 
-void FlushStdin(void) {
-	// make stdin non-blocking
-	int nFlags = fcntl(0, F_GETFL);
-	fcntl(0, F_SETFL, O_NONBLOCK);
-	char ch;
+/** Checks the specified string whether the string contains only numbers or a period. */
+int IsNumbersOnly(const char* pszString) {
+	int nResult = 0;
+	int fContainsOnePeriodOnly = 0;
 
-	// remove all characters from stdin
-	while ((ch = getchar()) != '\n' && ch != EOF) {
-	}
+	if (pszString == NULL || pszString[0] == '\0' || strlen(pszString) == 0)
+		return nResult;
 
-	// restore original flags
-	fcntl(0, F_SETFL, nFlags);
+	for(int i=0; i<strlen(pszString); i++){
+			if(46 != pszString[i] && (57 < pszString[i] || 48 > pszString[i])){
+				return nResult;			/* stop on the first non-numeric char with a 'false' result */
+			} else if (46 == pszString[i]) {
+				if (fContainsOnePeriodOnly == 0) {
+					fContainsOnePeriodOnly = 1;
+				} else if (fContainsOnePeriodOnly == 1) {
+					fContainsOnePeriodOnly = 2;		/* contains more than one period */
+				}
+			}
+		}
+	return (int)(fContainsOnePeriodOnly <= 1);		/* indicates that a string is all digits, and has at most one period (i.e. for a decimal) */
 }
 
-void ClearScreen(void){
-	/* clear the terminal window */
+void PromptForKeyPress(void){
+	printf("\nPress any key to continue...\n");
+	getchar();
+}
 
-	printf("\033[H\033[J");
+void PrintStrings(char* ppszStrings[], int nCount) {
+	// The value of count must be greater than or equal to zero
+	if (nCount <= 0)
+		return;
+
+	for (int i = 0; i < nCount; i++) {
+		printf("%s\r\n", ppszStrings[i]);
+	}
 }
