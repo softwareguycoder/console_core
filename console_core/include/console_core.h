@@ -10,12 +10,12 @@
 
 #include "symbols.h"
 
-void clear_screen(void);
-void flush_stdin(void);
-int get_line(const char *prmpt, char *buff, int size);
-int get_line_with_default(const char *prmpt, char *buff, const char *default_value, int size);
-int is_numbers_only(const char* string);
-void print_strings(char** strings, int count);
+void ClearScreen(void);
+void FlushStdin(void);
+int GetLineFromUser(const char *prmpt, char *buff, int size);
+int GetLineFromUserWithDefault(const char *prmpt, char *buff, const char *default_value, int size);
+int IsNumbersOnly(const char* string);
+void PrintStrings(char *ppszStrings[], int count);
 void PromptForKeyPress(void);
 
 #endif /* __CONSOLE_CORE_H__ */

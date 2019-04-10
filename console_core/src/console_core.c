@@ -13,124 +13,126 @@ void PromptForKeyPress(void){
 	getchar();
 }
 
-void print_strings(char** strings, int count) {
+void PrintStrings(char* ppszStrings[], int nCount) {
 	// The value of count must be greater than or equal to zero
-	if (count <= 0)
+	if (nCount <= 0)
 		return;
 
-	for (int i = 0; i < count; i++) {
-		printf("%s\r\n", strings[i]);
+	for (int i = 0; i < nCount; i++) {
+		printf("%s\r\n", ppszStrings[i]);
 	}
 }
 
 /** Checks the specified string whether the string contains only numbers or a period. */
-int is_numbers_only(const char* string) {
-	int result = 0;
-	int contains_one_period_only = 0;
+int IsNumbersOnly(const char* pszString) {
+	int nResult = 0;
+	int fContainsOnePeriodOnly = 0;
 
-	if (string == NULL || string[0] == '\0' || strlen(string) == 0)
-		return result;
+	if (pszString == NULL || pszString[0] == '\0' || strlen(pszString) == 0)
+		return nResult;
 
-	for(int i=0; i<strlen(string); i++){
-			if(46 != string[i] && (57 < string[i] || 48 > string[i])){
-				return result;			/* stop on the first non-numeric char with a 'false' result */
-			} else if (46 == string[i]) {
-				if (contains_one_period_only == 0) {
-					contains_one_period_only = 1;
-				} else if (contains_one_period_only == 1) {
-					contains_one_period_only = 2;		/* contains more than one period */
+	for(int i=0; i<strlen(pszString); i++){
+			if(46 != pszString[i] && (57 < pszString[i] || 48 > pszString[i])){
+				return nResult;			/* stop on the first non-numeric char with a 'false' result */
+			} else if (46 == pszString[i]) {
+				if (fContainsOnePeriodOnly == 0) {
+					fContainsOnePeriodOnly = 1;
+				} else if (fContainsOnePeriodOnly == 1) {
+					fContainsOnePeriodOnly = 2;		/* contains more than one period */
 				}
 			}
 		}
-	return (int)(contains_one_period_only <= 1);		/* indicates that a string is all digits, and has at most one period (i.e. for a decimal) */
+	return (int)(fContainsOnePeriodOnly <= 1);		/* indicates that a string is all digits, and has at most one period (i.e. for a decimal) */
 }
 
-int get_line(const char *prmpt, char *buff, int size) {
-	int ch, extra;
+int GetLineFromUser(const char *pszPrompt, char *pszReplyBuffer, int nSize) {
+	char ch;
+	int nExtra = 0;
 
-	flush_stdin();
+	FlushStdin();
 
 	// Get line with buffer overrun protection.
 
-	if (prmpt != NULL) {
-		printf("%s", prmpt);
+	if (pszPrompt != NULL && pszPrompt[0] != '\0' && strlen(pszPrompt) > 0) {
+		printf("%s", pszPrompt);
 		fflush(stdout);
 	}
 
-	if (fgets(buff, size, stdin) == NULL)
+	if (fgets(pszReplyBuffer, nSize, stdin) == NULL)
 		return NO_INPUT;
 
 	// If it was too long, there'll be no newline. In that case, we flush
 	// to end of line so that excess doesn't affect the next call.
-	if (buff[strlen(buff) - 1] != '\n') {
-		extra = 0;
-		while (((ch = getchar()) != '\n') && (ch != EOF) && extra != 1)
-			extra = 1;
-		return (extra == 1) ? TOO_LONG : OK;
+	if (pszReplyBuffer[strlen(pszReplyBuffer) - 1] != '\n') {
+		nExtra = 0;
+		while (((ch = getchar()) != '\n') && (ch != EOF) && nExtra != 1)
+			nExtra = 1;
+		return (nExtra == 1) ? TOO_LONG : OK;
 	}
 
 	// Otherwise remove newline and give string back to caller.
-	buff[strlen(buff) - 1] = '\0';
+	pszReplyBuffer[strlen(pszReplyBuffer) - 1] = '\0';
 
-	return (strlen(buff) == size) ? EXACTLY_CORRECT : OK;
+	return (strlen(pszReplyBuffer) == nSize) ? EXACTLY_CORRECT : OK;
 }
 
-int get_line_with_default(const char *prmpt, char *buff,
-		const char *default_value, int size) {
-	int ch, extra;
+int GetLineFromUserWithDefault(const char *pszPrompt, char *pszReplyBuffer,
+		const char *pszDefaultValue, int nSize) {
+	char ch;
+	int nExtra = 0;
 
-	flush_stdin();
+	FlushStdin();
 
 	// Get line with buffer overrun protection.
 
-	if (prmpt != NULL) {
-		printf("%s [%s]", prmpt, default_value);
+	if (pszPrompt != NULL) {
+		printf("%s [%s]", pszPrompt, pszDefaultValue);
 		fflush(stdout);
 	}
 
-	if (fgets(buff, size, stdin) == NULL) {
+	if (fgets(pszReplyBuffer, nSize, stdin) == NULL) {
 		/* If we are here and there is no input by the user, then
 		 * give the default_value; make sure that buff is big enough
 		 * to hold the default_value.   We assume that the size parameter
 		 * is filled with the length of the array pointed to by buff. */
 
-		if (size < strlen(default_value)) {
+		if (nSize < strlen(pszDefaultValue)) {
 			return NO_INPUT;
 		}
-		strcpy(buff, default_value);
+		strcpy(pszReplyBuffer, pszDefaultValue);
 		return OK;
 	}
 
-	// If it was too long, there'll be no newline. In that case, we flush
+	// If the response was too long, there'll be no newline. In that case, we flush
 	// to end of line so that excess doesn't affect the next call.
-	if (buff[strlen(buff) - 1] != '\n') {
-		extra = 0;
-		while (((ch = getchar()) != '\n') && (ch != EOF) && extra != 1)
-			extra = 1;
-		return (extra == 1) ? TOO_LONG : OK;
+	if (pszReplyBuffer[strlen(pszReplyBuffer) - 1] != '\n') {
+		nExtra = 0;
+		while (((ch = getchar()) != '\n') && (ch != EOF) && nExtra != 1)
+			nExtra = 1;
+		return (nExtra == 1) ? TOO_LONG : OK;
 	}
 
 	// Otherwise remove newline and give string back to caller.
-	buff[strlen(buff) - 1] = '\0';
+	pszReplyBuffer[strlen(pszReplyBuffer) - 1] = '\0';
 
-	return (strlen(buff) == size) ? EXACTLY_CORRECT : OK;
+	return (strlen(pszReplyBuffer) == nSize) ? EXACTLY_CORRECT : OK;
 }
 
-void flush_stdin(void) {
+void FlushStdin(void) {
 	// make stdin non-blocking
-	int flags = fcntl(0, F_GETFL);
+	int nFlags = fcntl(0, F_GETFL);
 	fcntl(0, F_SETFL, O_NONBLOCK);
-	char c;
+	char ch;
 
 	// remove all characters from stdin
-	while ((c = getchar()) != '\n' && c != EOF) {
+	while ((ch = getchar()) != '\n' && ch != EOF) {
 	}
 
 	// restore original flags
-	fcntl(0, F_SETFL, flags);
+	fcntl(0, F_SETFL, nFlags);
 }
 
-void clear_screen(void){
+void ClearScreen(void){
 	/* clear the terminal window */
 
 	printf("\033[H\033[J");
