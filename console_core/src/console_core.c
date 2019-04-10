@@ -8,7 +8,7 @@
 #include "stdafx.h"
 #include "console_core.h"
 
-void prompt_for_key_press(void){
+void PromptForKeyPress(void){
 	printf("\nPress any key to continue...\n");
 	getchar();
 }
