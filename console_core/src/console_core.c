@@ -14,6 +14,10 @@ void ClearScreen(void){
 	printf("\033[H\033[J");
 }
 
+void ErasePrevLine(void) {
+    printf("\33[2K\r");
+}
+
 void FlushStdin(void) {
 	// make stdin non-blocking
 	int nFlags = fcntl(0, F_GETFL);

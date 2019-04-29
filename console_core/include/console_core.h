@@ -11,6 +11,7 @@
 #include "symbols.h"
 
 void ClearScreen(void);
+void ErasePrevLine(void);
 void FlushStdin(void);
 
 /**
