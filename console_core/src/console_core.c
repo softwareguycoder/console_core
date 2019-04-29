@@ -15,7 +15,13 @@ void ClearScreen(void){
 }
 
 void ErasePrevLine(void) {
-    printf("\33[2K\r");
+    printf("\x1B[A");   // move cursor up and to beginning of line
+    printf("\x1B[K");   // erase everything on current line
+}
+
+void ErasePrevText(void) {
+    printf("\x1B[F");   // move cursor to beginning of current line
+    printf("\x1B[K");   // erase everything on current line
 }
 
 void FlushStdin(void) {
@@ -38,9 +44,10 @@ int GetLineFromUser(const char *pszPrompt, char *pszReplyBuffer, int nSize) {
 
 	FlushStdin();
 
-	// Get line with buffer overrun protection.
+	// Get line with buffer overrun protection.  We also display a prompt.
+	// To not display a prompt, just pass an empty string ("") for pszPrompt.
 
-	if (pszPrompt != NULL && pszPrompt[0] != '\0' && strlen(pszPrompt) > 0) {
+	if (!IsNullOrWhiteSpace(pszPrompt)) {
 		printf("%s", pszPrompt);
 		fflush(stdout);
 	}

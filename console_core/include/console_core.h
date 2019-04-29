@@ -12,6 +12,7 @@
 
 void ClearScreen(void);
 void ErasePrevLine(void);
+void ErasePrevText(void);
 void FlushStdin(void);
 
 /**

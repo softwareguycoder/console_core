@@ -17,5 +17,6 @@
 #include <limits.h>
 
 #include <../../debug_core/debug_core/include/debug_core.h>
+#include <../../../common_core/common_core/include/common_core.h>
 
 #endif /* __STDAFX_H__ */
