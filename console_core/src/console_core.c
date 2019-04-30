@@ -14,6 +14,10 @@ void ClearScreen(void){
 	printf("\033[H\033[J");
 }
 
+void DisableBufferedConsoleIO(){
+    setbuf(stdout, NULL);
+}
+
 void ErasePrevLine(void) {
     printf("\x1B[A");   // move cursor up and to beginning of line
     printf("\x1B[K");   // erase everything on current line

@@ -11,6 +11,7 @@
 #include "symbols.h"
 
 void ClearScreen(void);
+void DisableBufferedConsoleIO();
 void ErasePrevLine(void);
 void ErasePrevText(void);
 void FlushStdin(void);
