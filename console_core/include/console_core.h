@@ -8,7 +8,7 @@
 #ifndef __CONSOLE_CORE_H__
 #define __CONSOLE_CORE_H__
 
-#include "symbols.h"
+#include "console_core_symbols.h"
 
 void ClearScreen(void);
 void DisableBufferedConsoleIO();
