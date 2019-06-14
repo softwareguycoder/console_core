@@ -118,7 +118,8 @@ int GetLineFromUserWithDefault(const char *pszPrompt, char *pszReplyBuffer,
 	return (strlen(pszReplyBuffer) == nSize) ? EXACTLY_CORRECT : OK;
 }
 
-/** Checks the specified string whether the string contains only numbers or a period. */
+/** Checks the specified string whether the string contains
+ * only numbers or a period. */
 int IsNumbersOnly(const char* pszString) {
 	int nResult = 0;
 	int fContainsOnePeriodOnly = 0;
@@ -128,7 +129,8 @@ int IsNumbersOnly(const char* pszString) {
 
 	for(int i=0; i<strlen(pszString); i++){
 			if(46 != pszString[i] && (57 < pszString[i] || 48 > pszString[i])){
-				return nResult;			/* stop on the first non-numeric char with a 'false' result */
+				return nResult;			/* stop on the first non-numeric char with a
+				                      'false' result */
 			} else if (46 == pszString[i]) {
 				if (fContainsOnePeriodOnly == 0) {
 					fContainsOnePeriodOnly = 1;
@@ -137,7 +139,8 @@ int IsNumbersOnly(const char* pszString) {
 				}
 			}
 		}
-	return (int)(fContainsOnePeriodOnly <= 1);		/* indicates that a string is all digits, and has at most one period (i.e. for a decimal) */
+	return (int)(fContainsOnePeriodOnly <= 1);		/* indicates that a string
+	  is all digits, and has at most one period (i.e. for a decimal) */
 }
 
 void PromptForKeyPress(void){
